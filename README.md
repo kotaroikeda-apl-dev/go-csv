@@ -6,14 +6,19 @@
 docker compose up -d # データベース起動
 go run cmd/basic/main.go # データベースからCSVを出力
 go run cmd/error/main.go # エラーハンドリングを含めたCSV出力
+go run cmd/insert-create/main.go # 100000件のデータをINSERTするSQLを作成
+go run cmd/high-speed/main.go # 高速なCSV出力
 docker compose down # データベース停止
 ```
 
 ## **学習ポイント**
 
-1. **`csv.NewWriter()`** を使って CSV ファイルを作成し、**`writer.Flush()`** でデータをファイルに書き込む。
+1. **`csv.NewWriter()`** を使って CSV ファイルを作成する。
 2. 検索条件付き SQL にプレースホルダ（**`LIKE ?`**）を使うことで安全にフィルタ検索ができる。
 3. CSV 出力時のエラーやデータ未取得時にも適切なハンドリングでユーザーに明確なメッセージを返せる。
+4. **`os.Create`** を使って、新しいファイルを作成する。
+5. **`writer.Write()`** を使って、そのファイルにデータを追加する。
+6. **`writer.Flush()`** を使って、データをファイルに書き込む。
 
 ## 作成者
 
